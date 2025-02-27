@@ -176,14 +176,14 @@ func syncXMLFromYtoX(xDir, yDir string, workers int, atlas string) error {
 						if re.Match([]byte(file)) {
 							switch filepath.Ext(file) {
 							case ".tiff":
-								data := []byte("This data was converted to tiff and (y) flipped by Tomo5 already, do not flip further!\n")
+								data := []byte("This data was originally written as tiff by Tomo5!\n")
 								errw := os.WriteFile(message, data, 0644)
 								if errw != nil {
 									fmt.Fprintln(os.Stderr, "Printing flip instructions went wrong")
 								}
 
 							case ".eer":
-								data := []byte("This data is orginially eer and was not yet (y) flipped by Tomo5, flip in y for further use!\n")
+								data := []byte("This data is orginially written as eer by Tomo5!\n")
 								errw := os.WriteFile(message, data, 0644)
 								if errw != nil {
 									fmt.Fprintln(os.Stderr, "Printing flip instructions went wrong")
