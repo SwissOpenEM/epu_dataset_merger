@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -29,7 +30,7 @@ func TestMyFileOperations(t *testing.T) {
 	atlasdir := dstDir
 	datadir := filepath.Join(dstDir, "X")
 	epudir := filepath.Join(dstDir, "Y")
-	if err := syncXMLFromYtoX(datadir, epudir, 8, atlasdir); err != nil {
+	if err := SyncXMLFromYtoX(datadir, epudir, 8, atlasdir); err != nil {
 		t.Errorf("runFileOperations failed: %v", err)
 	}
 	expectedFolder, err := filepath.Abs("CorrectTarget")
@@ -94,4 +95,38 @@ func compareDirectories(expectedDir, targetDir string) error {
 		return nil
 	})
 	return err
+}
+
+// for the initial copy to tmp
+func copyDir(src, dst string) error {
+	return filepath.Walk(src, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		rel, err := filepath.Rel(src, path)
+		if err != nil {
+			return err
+		}
+		targetPath := filepath.Join(dst, rel)
+		if info.IsDir() {
+			return os.MkdirAll(targetPath, info.Mode())
+		}
+		in, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+		defer in.Close()
+
+		out, err := os.Create(targetPath)
+		if err != nil {
+			return err
+		}
+		defer out.Close()
+
+		if _, err := io.Copy(out, in); err != nil {
+			return err
+		}
+		return os.Chmod(targetPath, info.Mode())
+	})
 }

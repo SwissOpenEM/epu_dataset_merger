@@ -40,12 +40,12 @@ func main() {
 		log.Println("EPU folder:", yRoot)
 	}
 
-	if err := syncXMLFromYtoX(xRoot, yRoot, maxWorkers, *aFlag); err != nil {
+	if err := SyncXMLFromYtoX(xRoot, yRoot, maxWorkers, *aFlag); err != nil {
 		log.Fatalf("Error syncing XML files: %v", err)
 	}
 }
 
-func syncXMLFromYtoX(xDir, yDir string, workers int, atlas string) error {
+func SyncXMLFromYtoX(xDir, yDir string, workers int, atlas string) error {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
