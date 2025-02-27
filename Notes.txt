@@ -1,0 +1,5 @@
+considerations:
+
+    the x walk causes issues because it essentially multitriggers the actual y walk actions - could maybe replace with a depth 1 search in a for loop?
+    the actual copy and folder generation works well :)
+    
