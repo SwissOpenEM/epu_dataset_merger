@@ -1,6 +1,6 @@
 # EPU/Tomo5 to data Mover
 
-Small tool to move some of the data and the metadata that EPU usually keeps on the microscope computer to you data directories. As these two directories are often not on the same computer this will require some mounts to be set.
+Small tool to move some of the data and the metadata that EPU usually keeps on the microscope computer to your data directories. As these two directories are often not on the same computer this will require some mounts to be set.
 
 ## What it does
 * EPU/ Single particle Analysis: Copies corresponding xmls (metadata output) next to the tiff/eer/mrc movies, optionally also adds the Atlas to the top level directory
