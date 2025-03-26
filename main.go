@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"strings"
 	"sync"
 )
@@ -298,13 +299,21 @@ func getAtlas(yPath string, atlas string, xPath string) error {
 				fmt.Println("Error:", err)
 				return err
 			}
-			// Change the Windows path to a linux one (if required) and change drive D:\ start to mountpoint *aFlag
-			atlasdm := strings.ReplaceAll(value, `\`, string(filepath.Separator))
-			if len(atlasdm) > 1 && atlasdm[1] == ':' {
-				atlasdm = atlasdm[2:]
+			var fullpath string
+			// if os windows just use path
+			switch runtime.GOOS {
+			case "windows":
+				fullpath = value
+			// if os not windows change the Windows path to a linux one (if required) and change drive D:\ start to mountpoint *aFlag
+			default:
+				atlasdm := strings.ReplaceAll(value, `\`, string(filepath.Separator))
+				if len(atlasdm) > 1 && atlasdm[1] == ':' {
+					atlasdm = atlasdm[2:]
+				}
+				fullpath = atlas + atlasdm
 			}
-			full := atlas + atlasdm
-			targetpath := filepath.Dir(full)
+
+			targetpath := filepath.Dir(fullpath)
 			atlas_re := `^Atlas_.*\.mrc$`
 			find := regexp.MustCompile(atlas_re)
 			test, errtest := os.ReadDir(targetpath)
