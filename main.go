@@ -304,7 +304,7 @@ func getAtlas(yPath string, atlas string, xPath string) error {
 			switch runtime.GOOS {
 			case "windows":
 				fullpath = value
-			// if os not windows change the Windows path to a linux one (if required) and change drive D:\ start to mountpoint *aFlag
+			// if os not windows change the Windows path to a linux compatible one and change drive to mountpoint *aFlag
 			default:
 				atlasdm := strings.ReplaceAll(value, `\`, string(filepath.Separator))
 				if len(atlasdm) > 1 && atlasdm[1] == ':' {
