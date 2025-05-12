@@ -196,6 +196,9 @@ func SyncXMLFromYtoX(xDir, yDir string, workers int, atlas string) error {
 				}
 				return nil
 
+			} else if yd.Name() == "userdata.json" {
+				//make sure to let the userdata.json through
+				//fmt.Println("Just for debugging, userdata copy")
 			} else if !strings.HasSuffix(strings.ToLower(yd.Name()), ".xml") {
 				return nil
 			}

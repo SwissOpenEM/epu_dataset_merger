@@ -1,0 +1,24 @@
+{
+    "author": "random person",
+    "email": "random.person@university.ch",
+    "grid": "",
+    "doserate": {
+      "rate": 12,
+      "unit": "e/px/s"
+    },
+    "total_dose": {
+      "dose": 12,
+      "unit": "e/px"
+    },
+    "cs": "2.7 mm",
+    "voltage": "300 kV",
+    "frames": "",
+    "fractionation": "",
+    "comment": "",
+    "pi": {
+      "name": "Some PI",
+      "email": "some.PI@university.ch",
+      "group": "somepi"
+    },
+    "uniintern": true
+  }

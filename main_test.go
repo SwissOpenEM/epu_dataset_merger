@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -62,11 +61,11 @@ func compareDirectories(expectedDir, targetDir string) error {
 			return fmt.Errorf("mismatch for %s: one is a directory, the other is not", relPath)
 		}
 		if !expInfo.IsDir() {
-			expData, err := ioutil.ReadFile(expPath)
+			expData, err := os.ReadFile(expPath)
 			if err != nil {
 				return fmt.Errorf("error reading expected file %s: %v", relPath, err)
 			}
-			targetData, err := ioutil.ReadFile(targetPath)
+			targetData, err := os.ReadFile(targetPath)
 			if err != nil {
 				return fmt.Errorf("error reading target file %s: %v", relPath, err)
 			}
